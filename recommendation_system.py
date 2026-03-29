@@ -1,14 +1,12 @@
 from math import sqrt
-
-# User ratings (dictionary format)
+
 ratings = {
     'User1': {'Movie1': 5, 'Movie2': 3, 'Movie4': 1},
     'User2': {'Movie1': 4, 'Movie4': 1},
     'User3': {'Movie1': 1, 'Movie2': 1, 'Movie4': 5},
     'User4': {'Movie3': 5, 'Movie4': 4}
 }
-
-# Similarity function (Euclidean distance)
+
 def similarity(user1, user2):
     common = set(ratings[user1]) & set(ratings[user2])
     if not common:
@@ -17,7 +15,7 @@ def similarity(user1, user2):
     sum_sq = sum((ratings[user1][item] - ratings[user2][item])**2 for item in common)
     return 1 / (1 + sqrt(sum_sq))
 
-# Recommend movies
+
 def recommend(user):
     scores = {}
     
@@ -32,8 +30,7 @@ def recommend(user):
                 scores.setdefault(movie, 0)
                 scores[movie] += sim * ratings[other][movie]
     
-    # Sort recommendations
+    
     return sorted(scores, key=scores.get, reverse=True)
-
-# Example
+
 print("Recommended for User1:", recommend('User1'))
